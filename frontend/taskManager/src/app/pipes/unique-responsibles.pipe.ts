@@ -1,12 +1,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Task } from '../models/task';
 
 @Pipe({
   name: 'uniqueResponsibles'
 })
 export class UniqueResponsiblesPipe implements PipeTransform {
-
-  transform(value: unknown, ...args: unknown[]): unknown {
-    return null;
+  transform(tasks: Task[]): string[] {
+    if (!tasks) return [];
+    
+    const responsibles = tasks.map(task => task.responsible);
+    return [...new Set(responsibles)];
   }
-
-}
+} 

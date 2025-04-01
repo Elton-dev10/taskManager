@@ -1,1 +1,69 @@
-<p>task-form works!</p>
+<div class="task-form-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ isEditing ? 'Editar Tarefa' : 'Cadastrar Tarefa' }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Título</mat-label>
+            <input matInput formControlName="title" required>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Descrição</mat-label>
+            <textarea matInput formControlName="description" required rows="4"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Responsável</mat-label>
+            <mat-select formControlName="responsible" required>
+              <mat-option *ngFor="let responsible of responsibleOptions" [value]="responsible">
+                {{responsible}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Prioridade</mat-label>
+            <mat-select formControlName="priority" required>
+              <mat-option *ngFor="let priority of priorityOptions" [value]="priority">
+                {{priority}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status" required>
+              <mat-option *ngFor="let status of statusOptions" [value]="status">
+                {{status}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Deadline</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="deadline" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="form-actions">
+          <button mat-button type="button" routerLink="/tasks">Cancelar</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="!taskForm.valid">
+            {{ isEditing ? 'Atualizar' : 'Cadastrar' }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div> 
